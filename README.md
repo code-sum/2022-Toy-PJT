@@ -26,6 +26,10 @@
 
 
 
+![221012](https://user-images.githubusercontent.com/106902415/195363433-42c6f9cd-c9c6-4197-8c7b-fd1305210adf.gif)
+
+
+
 ### 1. 프로젝트 사전 설정 👉 [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_modelform2.md)
 
 ### 2. accounts app & User model 생성 👉 [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_auth.md)
