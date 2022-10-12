@@ -3,11 +3,28 @@
 
 {% block content %}
   <div class="row text-center mt-5">
-    <h1>회원가입 서비스</h1>
-    <!-- Buttons -->
-    <div class="form d-flex justify-content-center my-3">
-      <a class="btn btn-primary me-3" href="{%  url 'accounts:signup' %}">회원가입</a>
-      <a class="btn btn-outline-primary" href="{%  url 'accounts:index' %}">회원목록</a>
-    </div>
+    <h1>환영합니다!</h1>
+    {% if user.is_authenticated %}
+      <!-- 로그인 상태라면 작동하는 코드 -->
+      <div>
+        <p class="mt-5">로그아웃 하시겠어요?</p>
+        <a class="btn btn-danger me-3" href="{% url 'accounts:logout' %}">로그아웃</a>
+      </div>
+    {% else %}
+      <!-- 로그아웃 상태라면 작동하는 코드 -->
+      <!-- 회원인 경우 -->
+      <div>
+        <p class="mt-5">회원이신가요?</p>
+        <a class="btn btn-warning me-3" href="{%  url 'accounts:login' %}">로그인</a>
+      </div>
+      <!-- 회원이 아닌 경우 -->
+      <div>
+        <p class="mt-5">회원이 아니신가요?</p>
+        <div class="form d-flex justify-content-center my-3">
+          <a class="btn btn-primary me-3" href="{%  url 'accounts:signup' %}">회원가입</a>
+          <a class="btn btn-outline-primary" href="{%  url 'accounts:index' %}">비회원으로 계속하기</a>
+        </div>
+      </div>
+    {% endif %}
   </div>
 {% endblock content %}
