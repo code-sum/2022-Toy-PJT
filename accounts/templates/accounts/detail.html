@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row mt-5 text-center justify-content-center">
+    <h1 class="my-5">{{ user.username }}님의 프로필</h1>
+    <p class="mb-4">이메일 :
+      {{ user.email }}</p>
+    <a href="{% url 'accounts:index' %}" class="btn btn-primary col-2">목록으로</a>
+  </div>
+
+{% endblock content %}

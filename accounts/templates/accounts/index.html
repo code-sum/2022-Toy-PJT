@@ -18,7 +18,7 @@
           <tr>
             <th scope="row">{{ forloop.counter }}</th>
             <td>
-              <a href="">{{ user.username }}</a>
+              <a href="{% url 'accounts:detail' user.pk %}">{{ user.username }}</a>
             </td>
             <td>{{ user.email }}</td>
           </tr>
