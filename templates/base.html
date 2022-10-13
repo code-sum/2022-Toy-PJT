@@ -14,12 +14,19 @@
     <!-- Navbar -->
     <nav class="navbar bg-light">
       <div class="container ms-3 justify-content-start">
+        <a class="navbar-brand fw-bold ms-3" href="{% url 'index' %}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-twitch" viewbox="0 0 16 16">
+            <path d="M3.857 0 1 2.857v10.286h3.429V16l2.857-2.857H9.57L14.714 8V0H3.857zm9.714 7.429-2.285 2.285H9l-2 2v-2H4.429V1.143h9.142v6.286z"/>
+            <path d="M11.857 3.143h-1.143V6.57h1.143V3.143zm-3.143 0H7.571V6.57h1.143V3.143z"/>
+          </svg>
+        </a>
         {% if user.is_authenticated %}
-          <a class="navbar-brand fw-bold" href="{% url 'accounts:detail' user.pk %}">{{ request.user.username }}</a>
+          <a class="navbar-brand fw-bold" href="{% url 'accounts:detail' user.pk %}">
+            {{ request.user.username }}</a>
         {% else %}
-          <a class="navbar-brand fw-bold" href="#">비회원</a>
+          <a class="navbar-brand fw-bold" href="#">
+            익명1</a>
         {% endif %}
-        <span>님 안녕하세요</span>
       </div>
     </nav>
     <div class="container">
