@@ -9,6 +9,7 @@
       <div>
         <p class="mt-5">로그아웃 하시겠어요?</p>
         <a class="btn btn-danger me-3" href="{% url 'accounts:logout' %}">로그아웃</a>
+        <a class="btn btn-outline-danger" href="{%  url 'accounts:index' %}">돌아가기</a>
       </div>
     {% else %}
       <!-- 로그아웃 상태라면 작동하는 코드 -->
