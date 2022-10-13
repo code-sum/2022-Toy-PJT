@@ -14,17 +14,22 @@ def index(request):
     return render(request, "accounts/index.html", context)
 
 def signup(request):
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('accounts:index')
-    else:     
-        form = CustomUserCreationForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'accounts/signup.html', context)
+    # 이미 로그인된 사람은 accounts:index 로 보내기
+    if request.user.is_authenticated:
+        return redirect('accounts:index')
+    else:
+        if request.method == 'POST':
+            form = CustomUserCreationForm(request.POST)
+            if form.is_valid():
+                user = form.save()
+                auth_login(request, user)
+                return redirect('accounts:index')
+        else:     
+            form = CustomUserCreationForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'accounts/signup.html', context)
 
 def detail(request, pk):
     user = get_user_model().objects.get(pk=pk)
