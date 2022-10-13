@@ -1,20 +1,6 @@
-# ✅Django 로그인에 대한 이해
+# 🗂️ 회원관리 서비스 만들기
 
-> 
->
-> 🗂️ [실습] 회원관리 서비스 만들기
->
-> 1. HTTP & 쿠키(Cookie)
-> 2. Login
-> 3. Authentication with User
-> 4. Logout
-> 5. Limiting access to logged-in users
-
-
-
-## 🗂️ [실습] 회원관리 서비스 만들기
-
-> Django Auth 를 활용해 회원관리(회원가입/회원목록/프로필/로그인/로그아웃)가 가능한 서비스 개발
+> Django Auth 를 활용해 회원관리가 가능한 서비스 개발
 >
 > 
 >
@@ -23,20 +9,23 @@
 > 3. 회원가입, 회원목록, 프로필
 > 4. 로그인
 > 5. 로그아웃
+> 6. 회원정보 수정
+> 7. 회원탈퇴
+> 8. 기타
 
 
 
-![221012](https://user-images.githubusercontent.com/106902415/195363433-42c6f9cd-c9c6-4197-8c7b-fd1305210adf.gif)
+![221013](https://user-images.githubusercontent.com/106902415/195563564-782186dd-7eda-4cf8-a3bf-6b2ae5d1418c.gif)
 
 
 
-### 1. 프로젝트 사전 설정 👉 [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_modelform2.md)
+## 1. 프로젝트 사전 설정 👉 [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_modelform2.md)
 
-### 2. accounts app & User model 생성 👉 [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_auth.md)
+## 2. accounts app & User model 생성 👉 [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_auth.md)
 
-### 3. 회원가입, 회원목록, 프로필
+## 3. 회원가입, 회원목록, 프로필
 
-#### 3-0. 서비스 메인 페이지
+### 3-1. 서비스 메인 페이지
 
 > [GET] http://127.0.0.1:8000/
 
@@ -82,7 +71,7 @@ def index(request):
 {% endblock content %}
 ```
 
-#### 3-1. 회원가입
+### 3-2. 회원가입
 
 > [GET] http://127.0.0.1:8000/accounts/signup/
 
@@ -189,7 +178,7 @@ admin.site.register(get_user_model(), UserAdmin)
 <a class="btn btn-primary me-3" href="{%  url 'accounts:signup' %}">회원가입</a>
 ```
 
-#### 3-2. 회원조회
+### 3-3. 회원조회
 
 ```python
 # accounts/urls.py
@@ -281,7 +270,7 @@ def signup(request):
 <a class="btn btn-outline-primary" href="{%  url 'accounts:index' %}">회원목록</a>
 ```
 
-#### 3-3. 프로필
+### 3-4. 프로필
 
 > [GET] http://127.0.0.1:8000/accounts/<user_pk>/
 >
@@ -366,11 +355,13 @@ def detail(request, pk):
 <a href="{% url 'accounts:detail' user.pk %}">{{ user.username }}</a>
 ```
 
-### 4. 로그인
+
+
+## 4. 로그인
 
 > [POST] http://127.0.0.1:8000/accounts/login/
 
-#### 4-1. 기본 로그인 기능 구현
+### 4-1. 기본 로그인 기능 구현
 
 ```python
 # accounts/urls.py
@@ -478,7 +469,7 @@ def login(request):
 </div>
 ```
 
-#### 4-2. 템플릿 분기 처리하기
+### 4-2. 템플릿 분기 처리하기
 
 > 로그인을 했을 때, index.html 에 로그인/회원가입 버튼이 계속 뜨는건 이상하므로 {% if %} ~ {% else %} ~ {% endif %} 로 이어지는 조건문을 작성
 
@@ -517,7 +508,7 @@ def login(request):
 {% endblock content %}
 ```
 
-#### 4-3. `.is_authenticated` `.is_anonymous` 활용하기
+### 4-3. `.is_authenticated` `.is_anonymous` 활용하기
 
 > 그러나 위 4-2. 과 같이 템플릿을 분기 처리를 해도 http://127.0.0.1:8000/accounts/login/ 접속하면 회원 상태에서도 여전히 로그인을 또 할 수 있게끔 되어있음(ㅠㅠ) 이런 회원가입(혹은 글쓰기)을 템플릿이 아닌 백엔드 차원에서 막기 위해 views.py 에서 아래와 같이 조건문 추가 (로그인 안되었을 때만 로그인 가능하도록 .user.is_anonymous 을 조건문에 활용하고, 로그인된 상태에서는 해당 url 에 접근해도 accounts/index.html 페이지로 redirect 시켜버리기)
 
@@ -542,11 +533,9 @@ def login(request):
         return redirect('accounts:index')
 ```
 
-#### 4-4. `@login_required` : 다음 실습 때 활용법 정리하기(강의 3:05~3:)
 
-> @login_required 데코레이터는 글쓰기/글수정하기에서 비회원의 접근을 막을 때 유용하게 쓸 수 있음
 
-### 5. 로그아웃
+## 5. 로그아웃
 
 > [POST] http://127.0.0.1:8000/accounts/logout/
 
@@ -587,5 +576,313 @@ def logout(request):
 -->
 
 <a class="btn btn-danger me-3" href="{% url 'accounts.logout' %}">로그아웃</a>
+```
+
+
+
+## 6. 회원정보 수정
+
+### 6-1. 기본 회원정보 수정
+
+> localhost:8000/accounts/pk/ 입력했을때 다양한 사람들의 프로필이 뜨는데, 이걸 수정해 나가야함
+>
+> `@login_required` 는 로그인이 필요한 상황에서 사용. request.user 로 유저 객체를 쓰는 views.py 함수에서는 거의 무조건 쓰는 게 좋음
+
+```python
+# accounts/urls.py
+# 수정을 위한 url : /accounts/update/
+# 단 view 에서 로그인한 사용자의 pk값만 받아서 위의 url로 넘기는 로직
+
+path('update/', views.update, name='update'),
+```
+
+```python
+# accounts/forms.py 아래와 같은 코드 추가
+
+from django.contrib.auth.forms import UserChangeForm
+
+class CustomUserChangeForm(UserChangeForm):
+    
+    class Meta:
+        model = get_user_model()
+        fields = ('first_name', 'last_name', 'email')
+```
+
+```python
+# accounts/views.py
+
+'''
+GET 요청 : Form 제공
+POST 요청 : 실제 수정
+User 와 연결된 ModelForm 을 사용하면 된다
+'''
+
+from .forms import CustomUserChangeForm
+from django.contrib.auth.decorators import login_required
+
+# 로그인을 했을때만 수정 가능하도록 @login_required
+@login_required
+def update(request):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:detail', request.user.pk)
+    else:
+    	form = CustomUserChangeForm(instance=request.user)
+    context = {
+        'form': form
+    }
+    return render(request, 'accounts/update.html', context)
+```
+
+```django
+<!-- accounts/templates/accounts/update.html -->
+
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+  <div class="row mt-5">
+    <h1 class="text-center">프로필 업데이트</h1>
+    <form action="" method="POST" class="my-3">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      {% bootstrap_button button_type="submit" button_class="btn-primary" content="변경완료" %}
+    </form>
+  </div>
+
+{% endblock content %}
+```
+
+```python
+# accounts/models.py
+
+'''
+(보너스) 한국이름 풀네임으로 나오게 커스텀하기
+'''
+
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+class User(AbstractUser):
+    
+    @property
+    def full_name(self):
+        return f'{self.last_name}{self.first_name}'
+```
+
+```django
+<!-- accounts/templates/accounts/detail.html -->
+
+<!--
+프로필 수정할 때 성, 이름 입력하게끔 설계했으니
+프로필 상세보기 페이지에도 성, 이름(=full name) 출력하기
+-->
+
+{{ user.full_name }}
+```
+
+```django
+<!-- accounts/templates/accounts/detail.html -->
+
+<!-- 
+본인 프로필 조회할때만 수정하기 
+버튼이 보이도록 템플릿도 분기
+-->
+
+{% if request.user == user %}
+  <div>
+    <a class="btn btn-primary me-3" href="{% url 'accounts:update' %}">수정하기</a>
+    <a class="btn btn-outline-primary" href="{% url 'accounts:index' %}">회원목록</a>
+  </div>
+{% else %}
+  <div>
+    <a class="btn btn-outline-primary" href="{% url 'accounts:index' %}">회원목록</a>
+  </div>
+{% endif %}
+```
+
+### 6-2. 비밀번호 수정
+
+#### 6-2-1. 기본 비밀번호 수정
+
+```python
+# accounts/urls.py
+
+app_name = 'accounts'
+urlpatterns = [
+...,
+path('password/', views.change_password, name='change_password'),
+]
+```
+
+```python
+# accounts/views.py
+
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:index')
+    else:
+        form = PasswordChangeForm(request.user)
+    context = {
+		'form': form,
+	}
+    return render(request, 'accounts/change_password.html', context)
+```
+
+```django
+<!-- accounts/templates/accounts/change_password.html -->
+
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+  <div class="row mt-5">
+    <h1 class="text-center">비밀번호 변경</h1>
+    <form action="{% url 'accounts:change_password' %}" method="POST" class="my-3">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      {% bootstrap_button button_type="submit" button_class="btn-primary" content="변경완료" %}
+    </form>
+  </div>
+
+{% endblock content %}
+```
+
+```django
+<!-- accounts/templates/accounts/update.html -->
+
+<!--
+프로필 업데이트 페이지에
+비밀번호 수정으로 넘어가는 버튼 넣기
+-->
+
+<a class="btn btn-outline-primary" href="{%  url 'accounts:change_password' %}">비밀번호 변경</a>
+```
+
+#### 6-2-2. 비밀번호 수정 시, 세션 무효화 방지
+
+> 비밀번호가 수정되면 기존 session 과 회원 인증 정보가 일치하지 않아서 로그인 상태가 유지되지 못함
+>
+> 이때 `update_session_auth_hash(request, user)` 활용해서 암호가 변경되어도 로그아웃 되지 않도록 새로운 비밀번호의 session data 로 session 을 업데이트
+
+```python
+# accounts/views.py
+
+from django.contrib.auth import get_user_model, update_session_auth_hash
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            # 👇👇 세션 무효화 방지를 위해 새로 추가된 코드
+            update_session_auth_hash(request, form.user)
+            return redirect('accounts:index')
+    else:
+        form = PasswordChangeForm(request.user)
+    context = {
+		'form': form,
+	}
+    return render(request, 'accounts/change_password.html', context)
+```
+
+
+
+## 7. 회원탈퇴
+
+> 회원탈퇴는 DB에서 사용자를 삭제하는 것과 같음
+>
+> 선탈퇴 후로그아웃 로직으로 `delete` 함수 작성하기
+
+```python
+# accounts/urls.py
+
+app_name = 'accounts'
+urlpatterns = [
+...,
+path('delete/', views.delete, name='delete'),
+]
+```
+
+```python
+# accounts/views.py
+
+@login_required
+def delete(request):
+    request.user.delete() # 선 탈퇴
+    auth_logout(request)  # 후 로그아웃
+    return redirect('index')
+```
+
+```django
+<!-- accounts/templates/accounts/detail.html -->
+
+<!--
+프로필 업데이트 페이지에
+회원탈퇴 버튼 넣기
+-->
+
+<a class="btn btn-outline-danger" href="{%  url 'accounts:delete' %}">회원탈퇴</a>
+```
+
+
+
+## 8. 기타
+
+### 8-1. 로그인한 다음에 회원가입 못하게 막기
+
+> 로그인한 상태에서 주소창에 http://127.0.0.1:8000/accounts/signup/ 입력하면 회원가입 창이 뜨므로, views.py signup 함수에 이런 접근을 막는 로직 추가 (`.is_authenticated`)
+
+```python
+# accounts/views.py
+
+def signup(request):
+    # 이미 로그인된 사람은 accounts:index 로 보내기
+    if request.user.is_authenticated:
+        return redirect('accounts:index')
+    else:
+        if request.method == 'POST':
+            form = CustomUserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('accounts:index')
+        else:     
+            form = CustomUserCreationForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'accounts/signup.html', context)
+```
+
+### 8-2. 회원가입 후 곧바로 로그인 되도록 기능 추가
+
+```python
+def signup(request):
+    # 이미 로그인된 사람은 accounts:index 로 보내기
+    if request.user.is_authenticated:
+        return redirect('accounts:index')
+    else:
+        if request.method == 'POST':
+            form = CustomUserCreationForm(request.POST)
+            if form.is_valid():
+                # 👇👇 바로 로그인 되도록 새로 추가된 코드
+                user = form.save()
+                auth_login(request, user)
+                return redirect('accounts:index')
+        else:     
+            form = CustomUserCreationForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'accounts/signup.html', context)
 ```
 
