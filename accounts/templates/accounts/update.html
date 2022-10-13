@@ -5,7 +5,8 @@
   <div class="row mt-5">
     <h1 class="text-center mb-5">프로필 업데이트</h1>
     <div class="d-flex justify-content-end">
-      <a class="btn btn-outline-primary" href="{%  url 'accounts:change_password' %}">비밀번호 변경</a>
+      <a class="btn btn-outline-primary me-2" href="{%  url 'accounts:change_password' %}">비밀번호 변경</a>
+      <a class="btn btn-outline-danger" href="{%  url 'accounts:delete' %}">회원탈퇴</a>
     </div>
     <form action="" method="POST" class="my-3">
       {% csrf_token %}
