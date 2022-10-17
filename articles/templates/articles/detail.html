@@ -10,8 +10,10 @@
       <p class="me-5">{{ article.updated_at }}
         수정됨</p>
     </div>
-    <div class="">
-      <img src="{{ article.image.url }}" alt="{{ article.image }}" width="400" height="300">
+    <div>
+      {% if article.image.url %}
+        <img src="{{ article.image.url }}" alt="{{ article.image }}" width="400" height="300">
+      {% endif %}
       <p class="me-5 mt-3">{{ article.content }}</p>
     </div>
     <div class="text-end me-5">
