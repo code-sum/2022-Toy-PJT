@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="mt-5">
+    <h1 class="text-center">게시판</h1>
+    <div class="d-flex justify-content-end">
+      <a class="btn btn-primary" href="{% url 'articles:create' %}">새글쓰기</a>
+    </div>
+    <div class="row">
+      {% for article in articles %}
+        <div class="col-4" style="cursor: pointer;" onclick="location.href='{% url 'articles:detail' article.pk %}'">
+          <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{ article.title }}</h5>
+              <p class="card-text">익명1</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}
