@@ -17,11 +17,11 @@
 >
 >    8-2. 회원가입 후 곧바로 로그인 되도록 기능 추가
 >
->    8-3. acticles 앱 추가, 이미지 관리 기능 추가(221017)
+>    8-3. acticles 앱 추가, 이미지 관리 기능 추가(22.10.17)
 
 
 
-![221013](https://user-images.githubusercontent.com/106902415/195563564-782186dd-7eda-4cf8-a3bf-6b2ae5d1418c.gif)
+![221017](https://user-images.githubusercontent.com/106902415/196210710-a91277b5-2dad-4452-b285-46a3a60c375e.gif)
 
 
 
@@ -892,9 +892,9 @@ def signup(request):
         return render(request, 'accounts/signup.html', context)
 ```
 
-### 8-3. acticles 앱 추가, 이미지 관리 기능 추가(221017)
+### 8-3. acticles 앱 추가, 이미지 관리 기능 추가(22.10.17)
 
 #### 8-3-1. acticles 앱 추가 👉 [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_modelform2.md)
 
-#### 8-3-2. 이미지 관리 기능 추가
+#### 8-3-2. 이미지 관리 기능 추가  👉 [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_image.md)
 
