@@ -10,7 +10,9 @@
       {% for article in articles %}
         <div class="col-4" style="cursor: pointer;" onclick="location.href='{% url 'articles:detail' article.pk %}'">
           <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
+            {% if article.thumbnail.url %}
+              <img src="{{ article.thumbnail.url }}" class="card-img-top" alt="{{ article.thumbnail }}">
+            {% endif %}
             <div class="card-body">
               <h5 class="card-title">{{ article.title }}</h5>
               <p class="card-text">익명1</p>
