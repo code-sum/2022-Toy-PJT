@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import ArticleForm, CommentForm
-from .models import Article
+from .models import Article, Comment
 
 def index(request):
     articles = Article.objects.order_by('-pk')
@@ -58,3 +58,8 @@ def comment_create(request, pk):
         comment.article = article
         comment.save()
     return redirect('articles:detail', article.pk)
+
+def comments_delete(request, article_pk, comment_pk):
+    comment = Comment.objects.get(pk=comment_pk)
+    comment.delete()
+    return redirect('articles:detail', article_pk)
