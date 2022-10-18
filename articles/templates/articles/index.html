@@ -2,16 +2,18 @@
 
 {% block content %}
   <div class="mt-5">
-    <h1 class="text-center">게시판</h1>
+    <h1 class="text-center">익명게시판</h1>
     <div class="d-flex justify-content-end">
       <a class="btn btn-primary my-2" href="{% url 'articles:create' %}">새글쓰기</a>
     </div>
     <div class="row">
       {% for article in articles %}
-        <div class="col-4" style="cursor: pointer;" onclick="location.href='{% url 'articles:detail' article.pk %}'">
+        <div class="col-3" style="cursor: pointer;" onclick="location.href='{% url 'articles:detail' article.pk %}'">
           <div class="card">
-            {% if article.thumbnail.url %}
-              <img src=" {{ article.thumbnail.url }}" class="card-img-top" alt="{{ article.thumbnail }}">
+            {% if article.image %}
+              <img src="{{ article.thumbnail.url }}" class="card-img-top" alt="{{ article.thumbnail }}">
+            {% else %}
+              <img src="https://archive.org/download/no-photo-available/no-photo-available.png" class="card-img-top" alt="none">
             {% endif %}
             <div class="card-body">
               <h5 class="card-title">{{ article.title }}</h5>

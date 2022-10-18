@@ -19,7 +19,7 @@ class Article(models.Model):
                                 format='JPEG',
                                 options={'quality': 80})
     thumbnail = ImageSpecField(source='image', 
-                                processors=[ResizeToFill(120,80)], 
+                                processors=[ResizeToFill(800,600)], 
                                 format='JPEG')
 
 class Comment(models.Model):

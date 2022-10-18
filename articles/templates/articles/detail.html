@@ -11,10 +11,12 @@
         수정됨</p>
     </div>
     <div>
-      {% if article.image.url %}
+      {% if article.image %}
         <img src="{{ article.image.url }}" alt="{{ article.image }}" width="400" height="300">
+        <p class="me-5 mt-3">{{ article.content }}</p>
+      {% else %}
+        <p class="me-5 mt-3">{{ article.content }}</p>
       {% endif %}
-      <p class="me-5 mt-3">{{ article.content }}</p>
     </div>
     <div class="text-end me-5">
       <a class="btn btn-success" href="{% url 'articles:update' article.pk %}">
