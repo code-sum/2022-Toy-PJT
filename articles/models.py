@@ -21,3 +21,8 @@ class Article(models.Model):
     thumbnail = ImageSpecField(source='image', 
                                 processors=[ResizeToFill(120,80)], 
                                 format='JPEG')
+
+class Comment(models.Model):
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
