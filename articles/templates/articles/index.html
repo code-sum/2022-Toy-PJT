@@ -17,7 +17,14 @@
             {% endif %}
             <div class="card-body">
               <h5 class="card-title">{{ article.title }}</h5>
-              <p class="card-text">익명1</p>
+              <div class="d-flex justify-content-between">
+                <div class="card-text">익명1</div>
+                {% if article.created_string == False %}
+                  <div class="card-text text-secondary">{{ article.created_at|date:'m월 d일' }}</div>
+                {% else %}
+                  <div class="card-text text-secondary">{{ article.created_string }}</div>
+                {% endif %}
+              </div>
             </div>
           </div>
         </div>
