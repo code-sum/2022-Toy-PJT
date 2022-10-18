@@ -12,9 +12,12 @@ class ArticleForm(forms.ModelForm):
     }
 
 class CommentForm(forms.ModelForm):
+    content = forms.CharField(
+        label="",
+        widget=forms.TextInput(attrs={
+            "placeholder": "여러분의 댓글을 기다리고 있어요!",
+        })
+    )
     class Meta:
         model = Comment 
         fields = ['content']
-        labels = {
-            'content' : '댓글을 작성해주세요',
-    }

@@ -9,7 +9,7 @@
     <div class="d-flex justify-content-between">
       <p>{{ article.created_at }}
         작성됨</p>
-      <p class="me-5">{{ article.updated_at }}
+      <p>{{ article.updated_at }}
         수정됨</p>
     </div>
     <!-- Content -->
@@ -22,7 +22,7 @@
       {% endif %}
     </div>
     <!-- Buttons -->
-    <div class="text-end me-5">
+    <div class="text-end">
       <a class="btn btn-success" href="{% url 'articles:update' article.pk %}">
         수정
       </a>
@@ -34,8 +34,10 @@
     <hr class="my-5">
     <form action="{% url 'articles:comment_create' article.pk %}" method="POST">
       {% csrf_token %}
-      {% bootstrap_form comment_form layout='inline'%}
-      <a class="btn btn-primary" type="submit">등록</a>
+      {% bootstrap_form comment_form %}
+      <div class="d-flex justify-content-end">
+        {% bootstrap_button button_type="submit" content="등록" button_class="btn-primary" %}
+      </div>
     </form>
     <br><br>
     {% for comment in comments %}
