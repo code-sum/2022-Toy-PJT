@@ -14,7 +14,7 @@
 
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-xl bg-light">
+    <nav class="navbar navbar-expand-xl bg-light fixed-top">
       <div class="container-fluid">
         <a class="navbar-brand justify-content-start fw-bold ms-3" href="{% url 'index' %}">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-twitch" viewbox="0 0 16 16">
@@ -60,7 +60,7 @@
         </div>
       </div>
     </nav>
-    <div class="container" id="wrapper">
+    <div class="container py-5" id="wrapper">
       {% block content %}{% endblock content %}
     </div>
     <div id="css_footer">
