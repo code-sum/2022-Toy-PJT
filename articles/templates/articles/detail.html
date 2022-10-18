@@ -35,9 +35,9 @@
     <form action="{% url 'articles:comment_create' article.pk %}" method="POST">
       {% csrf_token %}
       {% bootstrap_form comment_form layout='inline'%}
-      {% bootstrap_button button_type="submit" content="등록" button_class="btn-primary" %}
+      <a class="btn btn-primary" type="submit">등록</a>
     </form>
-    <hr>
+    <br><br>
     {% for comment in comments %}
       <p>{{ comment.content }}</p>
       <hr>
@@ -51,6 +51,7 @@
           ⊂ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ノ ・゜+.<br>
           &nbsp;&nbsp;しー&nbsp;Ｊ °。+ *</p>
       </div>
+      <hr>
     {% endfor %}
   </div>
 
