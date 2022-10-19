@@ -18,8 +18,10 @@
 >    8-2. 회원가입 후 곧바로 로그인 되도록 기능 추가
 >
 >    8-3. acticles 앱 추가, 이미지 관리 기능 추가(22.10.17)
->    
+>
 >    8-4. 댓글 기능 추가(22.10.18)
+>    
+>    8-5. accounts 앱과 articles 앱 연동하기(22.10.19)
 
 
 
@@ -901,3 +903,5 @@ def signup(request):
 #### 8-3-2. 이미지 관리 기능 추가  👉 [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_image.md)
 
 ### 8-4. 댓글 기능 추가(22.10.18) 👉 [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_rdbms1.md)
+
+### 8-5. accounts 앱과 articles 앱 연동하기(22.10.19) 👉 [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_rdbms2.md)
