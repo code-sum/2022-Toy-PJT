@@ -2,13 +2,7 @@ from imagekit.models import ProcessedImageField, ImageSpecField
 from imagekit.processors import ResizeToFill
 from django.db import models
 from datetime import datetime, timedelta, timezone
-
-'''
-게시판 기능
-- 제목(20글자이내)
-- 내용(긴 글)
-- 글 작성시간 / 글 수정시간(자동으로 기록, 날짜/시간)
-'''
+from django.conf import settings
 
 class Article(models.Model):
     title = models.CharField(max_length=20)
@@ -22,6 +16,8 @@ class Article(models.Model):
     thumbnail = ImageSpecField(source='image', 
                                 processors=[ResizeToFill(800,600)], 
                                 format='JPEG')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+                                
     @property
     def created_string(self):
         time = datetime.now(tz=timezone.utc) - self.created_at
