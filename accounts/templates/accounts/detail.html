@@ -16,6 +16,15 @@
         </svg>
         {{ user.email }}</p>
     </div>
+    <div class="mb-4">
+      <h4 class="fw-bold">작성한 글</h4>
+      <p class="text-muted">{{ user.article_set.count }}개를 작성하였습니다.</p>
+      {% for article in user.article_set.all %}
+        <p>
+          <a class="text-decoration-none" href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a>
+        </p>
+      {% endfor %}
+    </div>
     {% if request.user == user %}
       <div>
         <a class="btn btn-primary me-3" href="{% url 'accounts:update' %}">수정하기</a>
