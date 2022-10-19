@@ -52,6 +52,7 @@ class Comment(models.Model):
     content = models.CharField(max_length=80)
     created_at = models.DateTimeField(auto_now_add=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     @property
     def created_string(self):
