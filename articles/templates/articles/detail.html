@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
-{% load static %}
 
 {% block content %}
 
@@ -52,14 +51,15 @@
       {% endif %}
     </div>
     <!-- Buttons -->
-    <div class="text-end">
-      <a class="btn btn-success" href="{% url 'articles:update' article.pk %}">
-        수정
-      </a>
-      <a class="btn btn-danger" href="{% url 'articles:delete' article.pk %}">
-        삭제
-      </a>
-    </div>
+    {% if request.user == article.user %}
+      <div class="text-end">
+        <a class="btn btn-success" href="{% url 'articles:update' article.pk %}">수정</a>
+        <form action="{% url 'articles:delete' article.pk %}" method="POST">
+          {% csrf_token %}
+          <input type="submit" value="삭제" class="btn btn-danger">
+        </form>
+      </div>
+    {% endif %}
     <!-- Comments -->
     <hr class="my-5">
     <form action="{% url 'articles:comment_create' article.pk %}" method="POST">
