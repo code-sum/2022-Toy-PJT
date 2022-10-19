@@ -18,7 +18,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ article.title }}</h5>
               <div class="d-flex justify-content-between">
-                <div class="card-text">익명1</div>
+                <div class="card-text">{{ article.user.username }}</div>
                 {% if article.created_string == False %}
                   <div class="card-text text-secondary">{{ article.created_at|date:'m월 d일' }}</div>
                 {% else %}

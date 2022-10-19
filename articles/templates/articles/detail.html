@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
+{% load static %}
 
 {% block content %}
 
@@ -16,7 +17,11 @@
         </div>
       {% endif %}
     </div>
-    <div class="d-flex justify-content-between my-2">
+    <div class="d-flex mt-2">
+      <div>
+        <a class="text-decoration-none" href="{% url 'accounts:detail' article.user.pk %}">{{ article.user.username }}</a>
+      </div>
+      &nbsp;|&nbsp;
       <div>
         {% if article.created_string == False %}
           <p>{{ article.created_at|date:'m월 d일' }}
@@ -26,6 +31,7 @@
             작성됨</p>
         {% endif %}
       </div>
+      &nbsp;|&nbsp;
       <div>
         {% if article.updated_string == False %}
           <p>{{ article.updated_at|date:'m월 d일' }}

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import ArticleForm, CommentForm
 from .models import Article, Comment
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     articles = Article.objects.order_by('-pk')
@@ -9,11 +10,15 @@ def index(request):
     }
     return render(request, 'articles/index.html', context)
 
+@login_required
 def create(request):
     if request.method == 'POST':
         article_form = ArticleForm(request.POST, request.FILES)
         if article_form.is_valid():
-            article_form.save()
+            article = article_form.save(commit=False)
+            # 로그인한 유저 => 작성자네!
+            article.user = request.user 
+            article.save()
             return redirect('articles:index')
     else:
         article_form = ArticleForm()
