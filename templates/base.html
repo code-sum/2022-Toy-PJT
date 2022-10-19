@@ -35,7 +35,7 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end p-2" id="navbarNav">
           <ul class="navbar-nav">
-            {% if user.is_authenticated %}
+            {% if request.user.is_authenticated %}
               <li class="nav-item">
                 <a class="navbar-brand fw-bold" href="{% url 'accounts:detail' user.pk %}">
                   {{ request.user.username }}
