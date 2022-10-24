@@ -11,7 +11,8 @@
 > 5. 이미지 관리 기능 (22.10.17) [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_image.md)
 > 6. 댓글 기능 (22.10.18) [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_rdbms1.md)
 > 7. accounts 앱과 articles 앱 연동 (22.10.19) [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_rdbms2.md)
+> 8. 좋아요 기능 구현 (22.10.24) [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_rdbms3.md)
 
 
 
-![221019](https://user-images.githubusercontent.com/106902415/196950220-3c8dbcc0-1c54-40f2-b9c9-31cecff19204.gif)
+![221024](https://user-images.githubusercontent.com/106902415/197487774-dd69f592-df07-45ea-b4f1-a2b5d274d819.gif)

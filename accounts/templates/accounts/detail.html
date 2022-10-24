@@ -16,8 +16,8 @@
         </svg>
         {{ user.email }}</p>
     </div>
-    <div class="d-flex text-start justify-content-evenly">
-      <div class="mb-4">
+    <div class="d-flex row text-start">
+      <div class="mb-4 col-6">
         <h4 class="fw-bold">작성한 글</h4>
         <p class="text-muted">{{ user.article_set.count }}개를 작성하였습니다.</p>
         {% for article in user.article_set.all %}
@@ -26,12 +26,21 @@
           </p>
         {% endfor %}
       </div>
-      <div class="mb-4">
+      <div class="mb-4 col-6">
         <h4 class="fw-bold">작성한 댓글</h4>
         <p class="text-muted">{{ user.comment_set.count }}개를 작성하였습니다.</p>
         {% for comment in user.comment_set.all %}
           <p>
             <a class="text-decoration-none" href="{% url 'articles:detail' comment.article_id %}">{{ comment.content }}</a>
+          </p>
+        {% endfor %}
+      </div>
+      <div class="mb-4 col-6">
+        <h4 class="fw-bold">좋아요 누른 글</h4>
+        <p class="text-muted">{{ user.like_articles.count }}개를 좋아합니다.</p>
+        {% for article in user.like_articles.all %}
+          <p>
+            <a class="text-decoration-none" href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a>
           </p>
         {% endfor %}
       </div>

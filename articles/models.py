@@ -17,6 +17,7 @@ class Article(models.Model):
                                 processors=[ResizeToFill(800,600)], 
                                 format='JPEG')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_articles')
                                 
     @property
     def created_string(self):
