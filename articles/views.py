@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ArticleForm, CommentForm
 from .models import Article, Comment
 from django.contrib.auth.decorators import login_required
@@ -29,7 +29,7 @@ def create(request):
     return render(request, 'articles/new.html', context=context)
 
 def detail(request, pk):
-    article = Article.objects.get(pk=pk)
+    article = get_object_or_404(Article, pk=pk)
     comment_form = CommentForm()
     context = {
         'article': article,
@@ -40,7 +40,7 @@ def detail(request, pk):
 
 @login_required
 def update(request, pk):
-    article = Article.objects.get(pk=pk)
+    article = get_object_or_404(Article, pk=pk)
     if request.user == article.user:
         if request.method == 'POST':
             article_form = ArticleForm(request.POST, request.FILES, instance=article)
@@ -68,7 +68,7 @@ def delete(request, pk):
 
 @login_required
 def comment_create(request, pk):
-    article = Article.objects.get(pk=pk)
+    article = get_object_or_404(Article, pk=pk)
     comment_form = CommentForm(request.POST)
     if comment_form.is_valid():
         comment = comment_form.save(commit=False)
@@ -89,7 +89,7 @@ def comments_delete(request, article_pk, comment_pk):
 
 @login_required
 def like(request, pk):
-    article = Article.objects.get(pk=pk)
+    article = get_object_or_404(Article, pk=pk)
     # 만약에 로그인한 유저가 이 글을 좋아요를 눌렀다면,
     # if article.like_users.filter(id=request.user.id).exists():
     if request.user in article.like_users.all(): 

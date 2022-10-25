@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
@@ -33,7 +33,7 @@ def signup(request):
         return render(request, 'accounts/signup.html', context)
 
 def detail(request, pk):
-    user = get_user_model().objects.get(pk=pk)
+    user = get_object_or_404(get_user_model(), pk=pk)
     context = {
         'user': user
     }
@@ -97,7 +97,7 @@ def delete(request):
 @require_POST
 def follow(request, pk):
     if request.user.is_authenticated:
-        user = get_user_model().objects.get(pk=pk)
+        user = get_object_or_404(get_user_model(), pk=pk)
         # 프로필에 해당하는 유저와 로그인한 유저가 같으면 클릭해도 그대로
         if request.user == user:
             return redirect('accounts:detail', pk)
