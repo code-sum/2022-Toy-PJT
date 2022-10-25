@@ -12,7 +12,9 @@
 > 6. 댓글 기능 (22.10.18) [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_rdbms1.md)
 > 7. accounts 앱과 articles 앱 연동 (22.10.19) [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_rdbms2.md)
 > 8. 좋아요 기능 구현 (22.10.24) [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_rdbms3.md)
+> 9. 팔로우 기능 구현 (22.10.25) [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_rdbms4.md)
+> 10. `views.py` 함수&데코레이터 전체 수정 (22.10.25) [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_views.md)
 
 
 
-![221024](https://user-images.githubusercontent.com/106902415/197487774-dd69f592-df07-45ea-b4f1-a2b5d274d819.gif)
+![221025](https://user-images.githubusercontent.com/106902415/197788554-64980103-5624-41b5-829d-87ff93dea4b7.gif)
