@@ -6,7 +6,10 @@
     <h1 class="text-center mb-5">프로필 업데이트</h1>
     <div class="d-flex justify-content-end">
       <a class="btn btn-outline-primary me-2" href="{%  url 'accounts:change_password' %}">비밀번호 변경</a>
-      <a class="btn btn-outline-danger" href="{%  url 'accounts:delete' %}">회원탈퇴</a>
+      <form action="{% url 'accounts:delete' user.pk %}" method="POST" class="me-2">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger">회원탈퇴</button>
+      </form>
     </div>
     <form action="" method="POST" class="my-3">
       {% csrf_token %}

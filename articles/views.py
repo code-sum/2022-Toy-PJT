@@ -3,7 +3,9 @@ from .forms import ArticleForm, CommentForm
 from .models import Article, Comment
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
+from django.views.decorators.http import require_POST, require_safe
 
+@require_safe
 def index(request):
     articles = Article.objects.order_by('-pk')
     context = {
@@ -28,6 +30,7 @@ def create(request):
     }
     return render(request, 'articles/new.html', context=context)
 
+@require_safe
 def detail(request, pk):
     article = get_object_or_404(Article, pk=pk)
     comment_form = CommentForm()
@@ -56,15 +59,13 @@ def update(request, pk):
     else:
         return HttpResponseForbidden()
 
-@login_required
+@require_POST
 def delete(request, pk):
-    article = Article.objects.get(pk=pk)
-    if request.user == article.user:
-        if request.method == 'POST':
+    if request.user.is_authenticated:
+        article = Article.objects.get(pk=pk)
+        if request.user == article.user:
             article.delete()
-            return redirect('articles:index')
-    else:
-        return HttpResponseForbidden()
+    return redirect('articles:index')
 
 @login_required
 def comment_create(request, pk):

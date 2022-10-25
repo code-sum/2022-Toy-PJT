@@ -5,8 +5,9 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_safe
 
+@require_safe
 def index(request):
     users = get_user_model().objects.all()
     context = {
@@ -55,6 +56,7 @@ def login(request):
     else:
         return redirect('accounts:index')
 
+@login_required
 def logout(request):
     auth_logout(request)
     return redirect('index')
@@ -88,11 +90,15 @@ def change_password(request):
 	}
     return render(request, 'accounts/change_password.html', context)
 
-@login_required
-def delete(request):
-    request.user.delete()
-    auth_logout(request)
-    return redirect('index')
+@require_POST
+def delete(request, pk):
+    if request.user.is_authenticated:
+        user = get_object_or_404(get_user_model(), pk=pk)
+        if request.user == user:
+            request.user.delete()
+            auth_logout(request)
+        return redirect('index')
+    return redirect ('accounts:login')
 
 @require_POST
 def follow(request, pk):
