@@ -5,6 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 
 def index(request):
     users = get_user_model().objects.all()
@@ -92,3 +93,19 @@ def delete(request):
     request.user.delete()
     auth_logout(request)
     return redirect('index')
+
+@require_POST
+def follow(request, pk):
+    if request.user.is_authenticated:
+        user = get_user_model().objects.get(pk=pk)
+        # 프로필에 해당하는 유저와 로그인한 유저가 같으면 클릭해도 그대로
+        if request.user == user:
+            return redirect('accounts:detail', pk)
+        if request.user in user.followers.all():
+            # 이미 팔로우 상태이면, '팔로우 취소' 버튼 눌렀을 때 삭제(remove)
+            user.followers.remove(request.user)
+        else:
+            # 팔로우 상태가 아니면, '팔로우' 누르면 추가 (add)
+            user.followers.add(request.user)
+        return redirect('accounts:detail', pk)
+    return redirect ('accounts:login')
