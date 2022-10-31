@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ArticleForm, CommentForm
 from .models import Article, Comment
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, JsonResponse
 from django.views.decorators.http import require_POST, require_safe
 
 @require_safe
@@ -91,13 +91,15 @@ def comments_delete(request, article_pk, comment_pk):
 @login_required
 def like(request, pk):
     article = get_object_or_404(Article, pk=pk)
-    # 만약에 로그인한 유저가 이 글을 좋아요를 눌렀다면,
-    # if article.like_users.filter(id=request.user.id).exists():
+
     if request.user in article.like_users.all(): 
-        # 좋아요를 삭제하고
         article.like_users.remove(request.user)
+        is_liked = False
     else:
-        # 좋아요 추가하고 
         article.like_users.add(request.user)
-    # 상세 페이지로 redirect
-    return redirect('articles:detail', pk)
+        is_liked = True
+    context = {
+        'is_liked': is_liked, 
+        'likeCount': article.like_users.count()
+    }
+    return JsonResponse(context)
