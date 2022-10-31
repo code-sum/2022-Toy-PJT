@@ -14,6 +14,7 @@
 > 8. 좋아요 기능 구현 (22.10.24) [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_rdbms3.md)
 > 9. 팔로우 기능 구현 (22.10.25) [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_rdbms4.md)
 > 10. `views.py` 함수&데코레이터 전체 수정 (22.10.25) [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_views.md)
+> 11. 좋아요, 팔로우, 댓글 기능 비동기 처리 (22.10.26) [(link)](https://github.com/code-sum/TIL/blob/master/notes/dj_axios.md)
 
 
 
